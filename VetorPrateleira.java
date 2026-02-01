@@ -54,8 +54,16 @@ public class VetorPrateleira implements IPrateleira {
 
 	@Override
 	public boolean inserir(IBolo bolo) {
-		// TODO Auto-generated method stub
-		return false;
+		if (this.cheia()) {return false;}
+		
+		for (int i = 0; i < prateleira.length; i++) {
+			if (prateleira[i] == null) {
+				prateleira[i] = bolo;
+				break;
+			}
+		}
+		
+		return true;
 	}
 
 	@Override
@@ -120,5 +128,5 @@ public class VetorPrateleira implements IPrateleira {
 		}
 		return lista;
 	}
-	
+
 }
