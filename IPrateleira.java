@@ -5,9 +5,9 @@ public interface IPrateleira {
 	boolean cheia();
 	boolean vazia();
 	boolean existe(IBolo bolo);
-	boolean inserir(IBolo bolo);
-	IBolo remover(IBolo bolo);
-	IBolo remover(int bolo);
+	boolean inserir(IBolo bolo) throws Exception;
+	IBolo remover(IBolo bolo) throws Exception;
+	IBolo remover(int posicao) throws Exception;
 	IBolo consultar(IBolo bolo);
 	IBolo[] listar();
 	IBolo[] listar(char c);

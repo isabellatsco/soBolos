@@ -11,19 +11,43 @@ public abstract class Bolo implements IBolo {
 	}
 	
 	public Bolo(int codigo, double custo, IFormato formato) {
-        this.setCodigo(codigo);
-        this.setCusto(custo);
+		this(codigo,custo);
         this.setFormato(formato);
     }
 
 	public int getCodigo() { return codigo; }
-	public void setCodigo(int codigo) { this.codigo = codigo; }
+	
+	public void setCodigo(int codigo) { 
+		if(codigo <= 0) {
+			System.out.println("Insira um número positivo");
+		} 
+		else {
+			this.codigo = codigo;
+
+		}
+	}
 
 	public double getCusto() { return custo; }
-	public void setCusto(double custo) { this.custo = custo; }
+	
+	public void setCusto(double custo) {
+		if(custo <= 0) {
+			System.out.println("Insira um valor positivo");
+		} 
+		else {
+			this.custo = custo; 
+		}
+	}
 
 	public IFormato getFormato() { return formato; }
-	public void setFormato(IFormato formato) { this.formato = formato; }
+	
+	public void setFormato(IFormato formato) {
+		if(formato == null) {
+			System.out.println("Insirar um formato válido");
+		}
+		else {
+			this.formato = formato; 
+		}
+	}
 	
 	@Override
 	public boolean equals(Object o) {

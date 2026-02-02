@@ -5,46 +5,36 @@ public class VetorPrateleira implements IPrateleira {
 	private IBolo[] prateleira;
 	
 	public VetorPrateleira() {
-//		super();
+		this.prateleira = new IBolo[10];
+		this.qtdBolo = 0;
 	}
 	
-	public VetorPrateleira(int qtdBolo) {
-//		super();
-		this.qtdBolo = qtdBolo;
-		this.prateleira = new IBolo[qtdBolo];
+	public VetorPrateleira(int tamanho) {
+		this.prateleira = new IBolo[tamanho];
+		this.qtdBolo = 0;
+
 	}
 
 	@Override
 	public int buscar(IBolo bolo) {
 		if (bolo == null) return -1;
-		for (int i = 0; i < prateleira.length; i++) {
-			if (prateleira[i] != null && prateleira[i].equals(bolo)) {
+		for (int i = 0; i < qtdBolo; i++) {
+			if (prateleira[i].equals(bolo)) {
 				return i;
 			}
 		}
 		return -1;
 	}
 	
-	private int quantosBolos() {
-		int qt = 0;
-		for (int i = 0; i < this.qtdBolo; i++) {
-			if (prateleira[i] != null) {
-				qt++;
-			}
-		}
-		return qt;
-	}
 
 	@Override
 	public boolean cheia() {
-		int qt = quantosBolos();
-		return qt == this.qtdBolo ? true : false;
+		return qtdBolo == prateleira.length;
 	}
 
 	@Override
 	public boolean vazia() {
-		int qt = quantosBolos();
-		return qt == 0 ? true : false;
+		return qtdBolo == 0;
 	}
 
 	@Override
@@ -53,29 +43,45 @@ public class VetorPrateleira implements IPrateleira {
 	}
 
 	@Override
-	public boolean inserir(IBolo bolo) {
+	public boolean inserir(IBolo bolo) throws Exception {
+		if (existe(bolo)) {
+            throw new Exception("Bolo já cadastrado.");  
+        }
+		
 		if (this.cheia()) {return false;}
 		
-		for (int i = 0; i < prateleira.length; i++) {
-			if (prateleira[i] == null) {
-				prateleira[i] = bolo;
-				break;
-			}
-		}
-		
+		prateleira[qtdBolo] = bolo;
+		qtdBolo++;
 		return true;
 	}
 
 	@Override
-	public IBolo remover(IBolo bolo) {
-		// TODO Auto-generated method stub
-		return null;
+	public IBolo remover(IBolo bolo) throws Exception{
+		int posicao = buscar(bolo);
+		
+        if (posicao == -1) {
+            throw new Exception("Bolo não encontrado."); 
+        }
+        
+        return remover(posicao);
 	}
 
 	@Override
-	public IBolo remover(int bolo) {
-		// TODO Auto-generated method stub
-		return null;
+	public IBolo remover(int posicao) throws Exception {
+		
+		if (posicao < 0 || posicao >= qtdBolo) {
+            throw new Exception("Bolo não encontrado na posição informada."); 
+        }
+		
+		IBolo removido = prateleira[posicao];
+
+        for (int i = posicao; i < qtdBolo - 1; i++) {
+            prateleira[i] = prateleira[i + 1];
+        }
+
+        prateleira[qtdBolo - 1] = null;
+        qtdBolo--;
+        return removido; 
 	}
 
 	@Override
@@ -119,11 +125,10 @@ public class VetorPrateleira implements IPrateleira {
 		for (IBolo bolo : prateleira) {
 			if (bolo != null) {
 				if (tipo == 'S' && bolo instanceof BoloSimples) {
-					lista[i] = bolo;
+					lista[i++] = bolo;
 				} else if (tipo == 'T' && bolo instanceof Torta) {
-					lista[i] = bolo;
+					lista[i++] = bolo;
 				}
-				i++;
 			}
 		}
 		return lista;
