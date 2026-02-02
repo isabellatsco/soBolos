@@ -42,7 +42,7 @@ public abstract class Bolo implements IBolo {
 	
 	public void setFormato(IFormato formato) {
 		if(formato == null) {
-			System.out.println("Insirar um formato válido");
+			System.out.println("Insira um formato válido");
 		}
 		else {
 			this.formato = formato; 
