@@ -30,7 +30,7 @@ public class Torta extends Bolo {
 	
 	@Override
 	public String toString() {
-		return super.toString() + " Bolo Simples\n" +
+		return super.toString() + " Torta\n" +
         	"⤷ Preço: " + this.preco() +
         	" | Formato: " + this.getFormato().getClass().getSimpleName() +
 			(this.isRecheio() ? "Sem" : "Com") + " Recheio" +
