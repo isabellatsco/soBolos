@@ -1,4 +1,5 @@
 package soBolos;
+import java.util.Objects;
 
 public abstract class Bolo implements IBolo {
 	private int codigo;
@@ -49,10 +50,15 @@ public abstract class Bolo implements IBolo {
 	}
 	
 	@Override
+	public int hashCode() {
+		return Objects.hash(codigo, custo, formato);
+	}
+	
+	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		Bolo b = (Bolo) o;
 		if (o == null || getClass() != o.getClass()) return false;
+		Bolo b = (Bolo) o;
 		return codigo == b.codigo;
     }
 
